@@ -8,8 +8,267 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/style.css" />
+  <style>
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative;
+      height: 55vh; min-height: 360px;
+      display: flex; align-items: flex-end;
+      overflow: hidden;
+    }
+    .page-hero-bg-fallback {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a1208 0%, #2c1f0a 40%, #0d0b08 100%);
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('/assets/images/infos-hero.jpg');
+      background-size: cover; background-position: center;
+    }
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,8,4,0.9) 0%, rgba(10,8,4,0.3) 60%, rgba(10,8,4,0.4) 100%);
+    }
+    .page-hero-content {
+      position: relative; z-index: 10;
+      width: 100%; padding: 3rem; padding-top: 8rem;
+    }
+    .page-hero-content .page-tag { display: block; margin-bottom: 0.75rem; }
+    .page-hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900; color: var(--cream); line-height: 1; margin-bottom: 0.75rem;
+    }
+    .page-hero-content p {
+      font-size: 1.1rem; font-style: italic; font-weight: 300;
+      color: rgba(245,240,232,0.65); letter-spacing: 0.08em;
+    }
+
+    /* ── LAYOUT ── */
+    .infos-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .infos-section:nth-child(odd)  { background: var(--dark2); }
+    .infos-section:nth-child(even) { background: var(--dark); }
+    .infos-section:last-of-type { border-bottom: none; }
+
+    .infos-header {
+      display: flex; align-items: center; gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .infos-icon {
+      width: 60px; height: 60px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .infos-icon svg {
+      width: 28px; height: 28px;
+      stroke: var(--gold); fill: none;
+      stroke-width: 1.3; stroke-linecap: round;
+    }
+    .infos-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700; color: var(--cream); line-height: 1;
+    }
+
+    /* ── ADRESSES ── */
+    .address-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .address-card {
+      padding: 1.75rem;
+      border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(201,168,76,0.02);
+    }
+    .address-card h3 {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .address-card p {
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.8; color: var(--text);
+    }
+    .address-card strong { color: var(--cream); font-weight: 600; }
+    .address-card a {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem;
+      color: var(--gold); text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .address-card a:hover { color: var(--gold-light); }
+    .address-card a svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none; stroke-width: 1.5;
+    }
+
+    /* ── DATES ── */
+    .dates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .date-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      align-items: start;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+    .date-item:last-child { border-bottom: none; }
+    .date-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding-top: 0.2rem;
+      min-width: 90px;
+    }
+    .date-info h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 0.3rem;
+    }
+    .date-info p {
+      font-size: 1rem; font-weight: 300;
+      color: var(--text); line-height: 1.6;
+    }
+    .date-info strong { color: var(--gold-light); font-weight: 600; }
+
+    /* ── PRIX ── */
+    .prix-box {
+      padding: 2rem;
+      border: 1px solid rgba(201,168,76,0.3);
+      background: rgba(201,168,76,0.04);
+      margin-bottom: 1.5rem;
+    }
+    .prix-box p {
+      font-size: 1.05rem; font-weight: 300;
+      line-height: 1.9; color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .prix-box p:last-child { margin-bottom: 0; }
+    .prix-box strong { color: var(--cream); font-weight: 600; }
+
+    .alert-box {
+      padding: 1.5rem 2rem;
+      border-left: 2px solid var(--gold);
+      background: rgba(201,168,76,0.04);
+      font-size: 0.95rem; font-weight: 300;
+      line-height: 1.8; color: var(--text);
+    }
+    .alert-box strong { color: var(--cream); font-weight: 600; }
+
+    /* ── DOCUMENTS ── */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .doc-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid rgba(201,168,76,0.2);
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.25s;
+      background: transparent;
+      cursor: pointer;
+    }
+    .doc-item:hover {
+      border-color: rgba(201,168,76,0.5);
+      background: rgba(201,168,76,0.05);
+      color: var(--cream);
+    }
+    .doc-item svg {
+      width: 22px; height: 22px; flex-shrink: 0;
+      stroke: var(--gold); fill: none; stroke-width: 1.5;
+    }
+    .doc-item span {
+      font-size: 0.9rem; font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .docs-note {
+      margin-top: 1.5rem;
+      font-size: 0.9rem; font-weight: 300;
+      line-height: 1.8; color: var(--muted);
+      font-style: italic;
+    }
+    .docs-note strong { color: var(--text); font-style: normal; }
+    .docs-note a { color: var(--gold); text-decoration: none; }
+    .docs-note a:hover { color: var(--gold-light); }
+
+    /* ── CONTACTS ── */
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .contact-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(201,168,76,0.18);
+      background: rgba(201,168,76,0.02);
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .contact-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      background: rgba(201,168,76,0.05);
+    }
+    .contact-totem {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 0.2rem;
+    }
+    .contact-name {
+      font-size: 0.8rem; font-weight: 300;
+      color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .contact-role {
+      font-size: 0.7rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .contact-phone {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.9rem; font-weight: 300; color: var(--text);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .contact-phone:hover { color: var(--gold); }
+    .contact-phone svg {
+      width: 14px; height: 14px;
+      stroke: var(--gold); fill: none; stroke-width: 1.5;
+    }
+
+    @media (max-width: 860px) {
+      .page-hero-content { padding: 6rem 1.5rem 2rem; }
+      .address-grid { grid-template-columns: 1fr; }
+      .docs-grid { grid-template-columns: 1fr; }
+      .contacts-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .contacts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+
   <nav id="navbar" class="opaque">
     <a class="nav-logo" href="/">
       <svg viewBox="0 0 40 48" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +286,6 @@
       <li><a href="/activites">Activités &amp; Récompenses</a></li>
       <li><a href="/promesse">Promesse, Quali &amp; Totem</a></li>
       <li><a href="/avant">Avant le camp</a></li>
-      <!-- <li><a href="/recap">Récap 2024–2025</a></li> -->
     </ul>
     <button class="burger" id="burger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -40,25 +298,221 @@
     <a href="/activites" onclick="closeMenu()">Activités &amp; Récompenses</a>
     <a href="/promesse" onclick="closeMenu()">Promesse, Quali &amp; Totem</a>
     <a href="/avant" onclick="closeMenu()">Avant le camp</a>
-    <!-- <a href="/recap" onclick="closeMenu()">Récap 2024–2025</a> -->
   </div>
 
-  <div class="page-header">
-    <span class="page-tag">Le Geer Express</span>
-    <h1 class="page-title">À compléter</h1>
-    <div class="page-rule"></div>
-  </div>
-
-  <section>
-    <div class="container">
-      <p style="color:var(--muted); font-style:italic; text-align:center;">Contenu à venir…</p>
+  <!-- ── HERO ── -->
+  <div class="page-hero">
+    <div class="page-hero-bg-fallback"></div>
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <span class="page-tag">Le Geer Express</span>
+      <h1>Infos pratiques</h1>
+      <p>Dates, heures et emplacement du camp</p>
     </div>
-  </section>
+  </div>
+
+  <!-- ── ADRESSES ── -->
+  <div class="infos-section">
+    <div class="container">
+      <div class="infos-header reveal">
+        <div class="infos-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h2>Adresses</h2>
+      </div>
+      <div class="address-grid reveal">
+        <div class="address-card">
+          <h3>Adresse du camp</h3>
+          <p>Rue Sous Coury<br>5650 Walcourt</p>
+          <a href="https://maps.google.com/?q=50.245104,4.427725" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Ouvrir dans Google Maps
+          </a>
+        </div>
+        <div class="address-card">
+          <h3>Adresse courrier</h3>
+          <p>
+            Monsieur Delhalle Yves<br>
+            Rue Py Des Tiennes, 32<br>
+            5651 Tarcienne
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DATES ── -->
+  <div class="infos-section">
+    <div class="container">
+      <div class="infos-header reveal">
+        <div class="infos-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h2>Dates et heures importantes</h2>
+      </div>
+      <div class="dates-list reveal">
+        <div class="date-item">
+          <span class="date-num">Précamp</span>
+          <div class="date-info">
+            <h4>Arrivée des 5èmes</h4>
+            <p>Vendredi <strong>4 juillet</strong> à <strong>19h00</strong></p>
+          </div>
+        </div>
+        <div class="date-item">
+          <span class="date-num">Départ</span>
+          <div class="date-info">
+            <h4>Arrivée de la troupe</h4>
+            <p>Samedi <strong>5 juillet</strong> à <strong>17h30</strong></p>
+          </div>
+        </div>
+        <div class="date-item">
+          <span class="date-num">Retour</span>
+          <div class="date-info">
+            <h4>Retour de la troupe</h4>
+            <p>Samedi <strong>19 juillet</strong> à <strong>11h30</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRIX ── -->
+  <div class="infos-section">
+    <div class="container">
+      <div class="infos-header reveal">
+        <div class="infos-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h2>Prix du camp</h2>
+      </div>
+      <div class="prix-box reveal">
+        <p>Le prix du camp, cette année, sera de <strong>200 € par enfant</strong>. Pour le deuxième enfant présent au sein de la troupe, le prix passe à <strong>180 €</strong>. Ce forfait comprend : location prairie, intendance, perches pour constructions, achat matériel…</p>
+        <p>Ce montant est à verser avant le <strong>15 juin</strong> sur le compte des Scouts au nom de Victor Regout :<br>
+        <strong>BE35 7320 7739 4937</strong> avec la communication <strong>« Camp 2025 – NOM Prénom(s) »</strong>.</p>
+        <p>Une attestation de fréquentation sera donnée sur demande à la fin du camp pour un éventuel remboursement de la part de votre mutuelle. Chaque scout doit être en possession de sa <strong>carte d'identité</strong> pour le camp.</p>
+      </div>
+      <div class="alert-box reveal">
+        Le prix du camp ne doit en aucun cas être un obstacle à la participation d'un scout ! En cas de problème d'ordre financier, veuillez contacter un membre du staff ou notre grand chef d'unité <strong>Gorfou (Nathan Godin)</strong> au <a href="tel:+32494441311" style="color:var(--gold);">+32 494 44 13 11</a>.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DOCUMENTS ── -->
+  <div class="infos-section">
+    <div class="container">
+      <div class="infos-header reveal">
+        <div class="infos-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h2>Documents à remplir</h2>
+      </div>
+      <p class="reveal" style="font-size:1.05rem; font-weight:300; line-height:1.9; color:var(--text); margin-bottom:1.5rem;">Ces documents sont à renvoyer <strong style="color:var(--cream);">au plus tard pour le 15 juin</strong>. Nous insistons sur la date limite du paiement et du renvoi des formulaires, qui facilitera grandement notre organisation.</p>
+
+      <div class="docs-grid reveal">
+        <a class="doc-item" href="/assets/docs/droit-image.pdf">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Droit à l'image</span>
+        </a>
+        <a class="doc-item" href="/assets/docs/fiche-sante.pdf">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Fiche santé individuelle</span>
+        </a>
+        <a class="doc-item" href="/assets/docs/autorisation-parentale.pdf">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Autorisation parentale</span>
+        </a>
+        <a class="doc-item" href="/assets/docs/medicaments.pdf">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Médicaments</span>
+        </a>
+      </div>
+
+      <p class="docs-note reveal">
+        Documents à renvoyer par mail à <a href="mailto:scouts@unitedegeer.be">scouts@unitedegeer.be</a> ou par courrier à Isard — Monsieur Victor Regout, Rue Grande 47, 4219 Meeffe.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── ABSENCES ── -->
+  <div class="infos-section">
+    <div class="container">
+      <div class="infos-header reveal">
+        <div class="infos-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2>Absences</h2>
+      </div>
+      <div class="alert-box reveal">
+        Nous considérons que tout scout doit être présent lors de ce camp. En cas de non-participation, il est impératif de nous en avertir <strong>avant le 15 juin</strong> au plus tard. Dans le cas contraire, il vous sera demandé de participer aux frais.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONTACTS ── -->
+  <div class="infos-section">
+    <div class="container-wide">
+      <div class="infos-header reveal">
+        <div class="infos-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.68a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+        </div>
+        <h2>Numéros des chefs</h2>
+      </div>
+      <div class="contacts-grid reveal">
+        <div class="contact-card">
+          <p class="contact-totem">Isard</p>
+          <p class="contact-name">Victor Regout</p>
+          <p class="contact-role">Chef de Troupe &amp; Trésorier</p>
+          <a class="contact-phone" href="tel:+32470443695">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.68a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+            0470 44 36 95
+          </a>
+        </div>
+        <div class="contact-card">
+          <p class="contact-totem">Coendou</p>
+          <p class="contact-name">Edouard Gothier</p>
+          <p class="contact-role">Responsable communication</p>
+          <a class="contact-phone" href="tel:+32476319010">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.68a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+            0476 31 90 10
+          </a>
+        </div>
+        <div class="contact-card">
+          <p class="contact-totem">Wapiti</p>
+          <p class="contact-name">Aurélien Moës</p>
+          <p class="contact-role">Responsable matériel</p>
+          <a class="contact-phone" href="tel:+32499730978">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.68a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+            0499 73 09 78
+          </a>
+        </div>
+        <div class="contact-card">
+          <p class="contact-totem">Mazama</p>
+          <p class="contact-name">Pierrick de Borman</p>
+          <p class="contact-role">Responsable photos</p>
+          <a class="contact-phone" href="tel:+32478136293">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.68a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+            0478 13 62 93
+          </a>
+        </div>
+        <div class="contact-card">
+          <p class="contact-totem">Marsouin</p>
+          <p class="contact-name">Arthur Nagelmackers</p>
+          <p class="contact-role">Responsable pharmacie</p>
+          <a class="contact-phone" href="tel:+32478298992">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.68a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+            0478 29 89 92
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <span>Le staff &mdash; Tous droits réservés</span>
-    <span>Camp Scouts 2025</span>
+    <span>Camp Scouts 2026</span>
   </footer>
+
   <script src="/assets/js/main.js"></script>
 </body>
 </html>
