@@ -8,8 +8,298 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/style.css" />
+  <style>
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative;
+      height: 55vh;
+      min-height: 360px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .page-hero-bg-fallback {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a1208 0%, #2c1f0a 40%, #0d0b08 100%);
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('/assets/images/avant-hero.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,8,4,0.9) 0%, rgba(10,8,4,0.3) 60%, rgba(10,8,4,0.4) 100%);
+    }
+    .page-hero-content {
+      position: relative; z-index: 10;
+      width: 100%;
+      padding: 3rem;
+      padding-top: 8rem;
+    }
+    .page-hero-content .page-tag { display: block; margin-bottom: 0.75rem; }
+    .page-hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .page-hero-content p {
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(245,240,232,0.65);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── LAYOUT ── */
+    .avant-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .avant-section:nth-child(odd)  { background: var(--dark2); }
+    .avant-section:nth-child(even) { background: var(--dark); }
+    .avant-section:last-of-type { border-bottom: none; }
+
+    .avant-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .avant-icon {
+      width: 60px; height: 60px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avant-icon svg {
+      width: 28px; height: 28px;
+      stroke: var(--gold); fill: none;
+      stroke-width: 1.3; stroke-linecap: round;
+    }
+    .avant-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .intro-text {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── CHECKLIST ── */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .checklist-group { }
+
+    .checklist-group-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: background 0.2s;
+      border-radius: 2px;
+      padding: 0.45rem 0.5rem;
+    }
+
+    .checklist li:hover { background: rgba(201,168,76,0.04); }
+
+    .checklist li.checked { opacity: 0.45; }
+
+    .checklist li.checked .check-label { text-decoration: line-through; }
+
+    .check-box {
+      width: 16px; height: 16px;
+      border: 1px solid rgba(201,168,76,0.4);
+      flex-shrink: 0;
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .checklist li.checked .check-box {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .check-box svg {
+      width: 10px; height: 10px;
+      stroke: var(--dark);
+      fill: none; stroke-width: 2.5;
+      stroke-linecap: round;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .checklist li.checked .check-box svg { opacity: 1; }
+
+    .check-label {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .check-label strong { color: var(--cream); font-weight: 600; }
+
+    /* ── INTERDIT ── */
+    .interdit-box {
+      margin-top: 2.5rem;
+      padding: 1.75rem 2rem;
+      border: 1px solid rgba(180, 60, 60, 0.35);
+      background: rgba(180, 60, 60, 0.04);
+    }
+
+    .interdit-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #c97070;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .interdit-box ul { list-style: none; }
+
+    .interdit-box li {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(180,60,60,0.1);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .interdit-box li::before {
+      content: '✕';
+      position: absolute; left: 0;
+      color: #c97070;
+      font-size: 0.75rem;
+      top: 0.45rem;
+    }
+
+    .interdit-box li:last-child { border-bottom: none; }
+    .interdit-box strong { color: #d48080; font-weight: 600; }
+
+    /* ── PATROUILLE ── */
+    .patrol-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .patrol-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(201,168,76,0.02);
+    }
+
+    .patrol-card p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .patrol-card strong { color: var(--cream); font-weight: 600; }
+
+    /* ── RÉCAP ── */
+    .recap-todo {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .recap-todo li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s;
+      border-radius: 2px;
+      padding: 0.9rem 0.5rem;
+    }
+
+    .recap-todo li:hover { background: rgba(201,168,76,0.04); }
+    .recap-todo li:last-child { border-bottom: none; }
+    .recap-todo li.checked { opacity: 0.45; }
+    .recap-todo li.checked .check-label { text-decoration: line-through; }
+
+    /* ── NOTE ── */
+    .note {
+      margin-top: 2rem;
+      padding: 1.25rem 1.5rem;
+      border-left: 2px solid var(--gold);
+      background: rgba(201,168,76,0.04);
+      font-size: 0.9rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .page-hero-content { padding: 6rem 1.5rem 2rem; }
+      .checklist-grid { grid-template-columns: 1fr; }
+      .patrol-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+
   <nav id="navbar" class="opaque">
     <a class="nav-logo" href="/">
       <svg viewBox="0 0 40 48" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +317,6 @@
       <li><a href="/activites">Activités &amp; Récompenses</a></li>
       <li><a href="/promesse">Promesse, Quali &amp; Totem</a></li>
       <li><a href="/avant">Avant le camp</a></li>
-      <!-- <li><a href="/recap">Récap 2024–2025</a></li> -->
     </ul>
     <button class="burger" id="burger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -40,25 +329,175 @@
     <a href="/activites" onclick="closeMenu()">Activités &amp; Récompenses</a>
     <a href="/promesse" onclick="closeMenu()">Promesse, Quali &amp; Totem</a>
     <a href="/avant" onclick="closeMenu()">Avant le camp</a>
-    <!-- <a href="/recap" onclick="closeMenu()">Récap 2024–2025</a> -->
   </div>
 
-  <div class="page-header">
-    <span class="page-tag">Le Geer Express</span>
-    <h1 class="page-title">À compléter</h1>
-    <div class="page-rule"></div>
-  </div>
-
-  <section>
-    <div class="container">
-      <p style="color:var(--muted); font-style:italic; text-align:center;">Contenu à venir…</p>
+  <!-- ── HERO ── -->
+  <div class="page-hero">
+    <div class="page-hero-bg-fallback"></div>
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <span class="page-tag">Le Geer Express</span>
+      <h1>Avant le camp</h1>
+      <p>Les impératifs pour bien préparer le camp !</p>
     </div>
-  </section>
+  </div>
+
+  <!-- ── À EMPORTER ── -->
+  <div class="avant-section">
+    <div class="container">
+      <div class="avant-header reveal">
+        <div class="avant-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <h2>À emporter avec toi</h2>
+      </div>
+
+      <p class="intro-text reveal">Nous te conseillons de prendre cette liste avec toi dans ton sac, afin d'être sûr de ne rien oublier sur place. Si possible, marque tes vêtements d'une nominette. Pour rappel, les shorts en jeans sont proscrits, de même que les « 3/4 » : les shorts se portent au-dessus des genoux. Tu peux cocher les éléments au fur et à mesure que tu prépares ton sac !</p>
+
+      <div class="checklist-grid reveal">
+
+        <div class="checklist-group">
+          <p class="checklist-group-title">Pour la nuit</p>
+          <ul class="checklist">
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un matelas pneumatique</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un sac de couchage et un drap (si les nuits sont vraiment chaudes)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un pyjama</span></li>
+          </ul>
+        </div>
+
+        <div class="checklist-group">
+          <p class="checklist-group-title">Pour le jour</p>
+          <ul class="checklist">
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">3 shorts (pas de short de sport ou caleçon !)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">12 paires de chaussettes</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">15 caleçons</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">12 t-shirts / polo d'unité</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un pull chaud</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Une veste imperméable</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un long pantalon (pour les aînés)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Deux paires de chaussures dont une de baskets</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un maillot de bain</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Des chaussures d'eau</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Une bonne humeur 😄</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Des blagues</span></li>
+          </ul>
+        </div>
+
+        <div class="checklist-group">
+          <p class="checklist-group-title">Pour la toilette</p>
+          <ul class="checklist">
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Deux essuies et un gant de toilette</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label"><strong>Savon et shampoing obligatoirement bio</strong> (aussi pour la vaisselle !)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Peigne, brosse, gel (selon ta coupe !)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Brosse à dents + dentifrice</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Bonne crème solaire</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Spray citronnelle anti-moustiques</span></li>
+          </ul>
+        </div>
+
+        <div class="checklist-group">
+          <p class="checklist-group-title">Divers</p>
+          <ul class="checklist">
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un sac à linge</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un sac pour le hike (sac de couchage, matelas, affaires de jour)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Des piles de rechange pour ta lampe</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">De quoi écrire pour donner de tes nouvelles</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Une boussole</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Deux essuies de vaisselle pour ta patrouille</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Médicaments personnels (sans produits dopants !)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Une gourde</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Lampe de poche</span></li>
+          </ul>
+        </div>
+
+        <div class="checklist-group">
+          <p class="checklist-group-title">Facultatif</p>
+          <ul class="checklist">
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Un instrument de musique (les musiciens sont les bienvenus !)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Déguisements pour les sketchs (<strong>le déguisement dans le thème reste obligatoire !</strong>)</span></li>
+            <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Tout ce que ton imagination t'inspire…</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="interdit-box reveal">
+        <h4>⚠ Interdit</h4>
+        <ul>
+          <li>Radios, game boys, iPod, iPad, GPS et autres appareils du genre</li>
+          <li><strong>GSM (y compris les iPhone)</strong> — seront confisqués, le staff décline toute responsabilité en cas de dommage</li>
+          <li><strong>Toute substance illicite</strong> — sanction immédiate : renvoi définitif de la troupe et retour à Geer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── À PRÉVOIR EN PATROUILLE ── -->
+  <div class="avant-section">
+    <div class="container">
+      <div class="avant-header reveal">
+        <div class="avant-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h2>À prévoir en patrouille</h2>
+      </div>
+
+      <div class="patrol-grid reveal">
+        <div class="patrol-card">
+          <p>🩹 <strong>Trousse de premiers soins</strong> avec le strict nécessaire : crème solaire, anti-moustique, désinfectant, sparadraps, compeed's… Nous vérifierons scrupuleusement en début de camp.</p>
+        </div>
+        <div class="patrol-card">
+          <p>🚩 <strong>Un fanion de patrouille</strong> aux couleurs et à l'image de la patrouille. Chaque CP devra s'en munir.</p>
+        </div>
+        <div class="patrol-card">
+          <p>🫙 <strong>Au minimum 3 bassines</strong> pour faire la vaisselle.</p>
+        </div>
+        <div class="patrol-card">
+          <p>💰 <strong>Maximum 10€ d'argent de poche</strong> par scout, disponible uniquement lors du Hike.</p>
+        </div>
+      </div>
+
+      <div class="note reveal">
+        Nous proscrivons un trop grand nombre de bouteilles de soda, paquets de chips et bonbons. Nous estimons qu'ils n'ont pas leur place dans les moments de scoutisme. En cas d'abus, nous redistribuerons le surplus.<br><br>
+        * Les Renards et les Sangliers peuvent prendre <strong>15€</strong> d'argent de poche par scout (récompense gagnée lors d'une réunion).
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RÉCAPITULATIF ── -->
+  <div class="avant-section">
+    <div class="container">
+      <div class="avant-header reveal">
+        <div class="avant-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h2>Récapitulatif</h2>
+      </div>
+
+      <ul class="recap-todo reveal">
+        <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Vérifier son matériel de patrouille (malles, tente, …)</span></li>
+        <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Préparer sa feuille de Promesse (uniquement ceux qui sont en droit de passer leur promesse)</span></li>
+        <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Préparer sa veillée avec la ou les autre(s) patrouille(s)</span></li>
+        <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Préparer la journée CP (uniquement les CP)</span></li>
+        <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Préparer sa liste de courses pour le Concours Cuisine</span></li>
+        <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Confectionner un fanion de patrouille (toute la patrouille)</span></li>
+        <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Préparer son déguisement</span></li>
+        <li onclick="toggle(this)"><span class="check-box"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span class="check-label">Préparer son sac et ses médicaments</span></li>
+      </ul>
+    </div>
+  </div>
 
   <footer>
-    <span>Le staff &mdash; Tous droits réservés</span>
-    <span>Camp Scouts 2025</span>
+    <span>Le staff</span>
+    <span>Camp Scouts 2026</span>
   </footer>
+
   <script src="/assets/js/main.js"></script>
+  <script>
+    function toggle(el) {
+      el.classList.toggle('checked');
+    }
+  </script>
 </body>
 </html>
