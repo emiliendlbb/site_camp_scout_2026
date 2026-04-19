@@ -63,6 +63,12 @@ nav.opaque {
   stroke-linecap: round;
 }
 
+.nav-logo img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
 .nav-logo span {
   font-size: 0.9rem;
   font-weight: 300;
